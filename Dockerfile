@@ -4,6 +4,9 @@
 # https://hub.docker.com/_/python
 FROM python:3.7-slim
 
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y wget build-essential gcc zlib1g-dev
+
 # Copy local code to the container image.
 ENV APP_HOME /app
 ENV YOUR_CHANNEL_ACCESS_TOKEN ${YOUR_CHANNEL_ACCESS_TOKEN}
@@ -11,6 +14,9 @@ ENV YOUR_CHANNEL_SECRET ${YOUR_CHANNEL_SECRET}
 
 WORKDIR $APP_HOME
 COPY . ./
+
+# mecab
+RUN apt-get install -y mecab libmecab-dev mecab-ipadic mecab-ipadic-utf8
 
 # Install production dependencies.
 RUN pip install -r requirements.txt
