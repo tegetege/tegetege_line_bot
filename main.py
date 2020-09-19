@@ -26,9 +26,10 @@ def hello_world():
 
 @app.route("/hoge", methods=['GET'])
 def hoge():
-    mecab = MeCab.Tagger()
-    parsed = mecab.parse(request.args.get('hoge'))
-    return parsed
+    # mecab = MeCab.Tagger()
+    # parsed = mecab.parse(request.args.get('hoge'))
+    hoge = request.args.get('hoge')
+    return hoge
 
 @app.route("/callback", methods=['POST'])
 def callback():
