@@ -9,18 +9,26 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 import os
+import MeCab
 
 app = Flask(__name__)
 
 # YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
 # YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
 
+
 line_bot_api = LineBotApi(os.environ['YOUR_CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['YOUR_CHANNEL_SECRET'])
 
 @app.route("/")
 def hello_world():
-    return 'hello_world.'
+    return 'hello world.'
+
+@app.route("/hoge", methods=['GET'])
+def hoge():
+    mecab = MeCab.Tagger()
+    parsed = mecab.parse(request.args.get('hoge'))
+    return parsed
 
 @app.route("/callback", methods=['POST'])
 def callback():
